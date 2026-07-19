@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using Utlanssystem.Data;
+
 var builder = WebApplication.CreateBuilder(args);
+//Dette la vi til for å få tilgang til databasen.
+builder.Services.AddDbContext<UtlanssystemContext>(options =>
+    options.UseSqlite(builder.Configuration.GetConnectionString("UtlanssystemContext")));
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
