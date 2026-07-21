@@ -1,0 +1,31 @@
+@model Utlanssystem.Models.Loan
+
+@{
+    ViewData["Title"] = "Returner enhet";
+}
+
+<h1>Returner enhet</h1>
+
+<h3>Bekreft at denne enheten skal returneres</h3>
+
+<div>
+    <dl>
+        <dt>Enhet</dt>
+        <dd>@Model.Device?.Name</dd>
+
+        <dt>Type</dt>
+        <dd>@Model.Device?.DeviceType</dd>
+
+        <dt>Student</dt>
+        <dd>@Model.Student?.FirstName @Model.Student?.LastName</dd>
+
+        <dt>Lånedato</dt>
+        <dd>@Model.LoanDate.ToShortDateString()</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Bekreft retur</button>
+        <a asp-action="Index">Avbryt</a>
+    </form>
+</div>

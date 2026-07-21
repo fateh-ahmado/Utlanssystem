@@ -150,5 +150,15 @@ namespace Utlanssystem.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
+/*-------------------------------------------------------------------------------------------
+                    Bygg Available() — viser kun ledige enheter
+---------------------------------------------------------------------------------------------
+*/
+        // GET: Devices/Available - viser enheter som er tilgjengelige for utlån.
+        public async Task<IActionResult> Available()
+        {
+            var availableDevices = _context.Devices.Where(d => d.IsAvailable == true);
+            return View(await availableDevices.ToListAsync());
+        }
     }  
 }

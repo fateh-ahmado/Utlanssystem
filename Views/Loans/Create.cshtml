@@ -1,0 +1,30 @@
+@model Utlanssystem.Models.Loan
+
+@{
+    ViewData["Title"] = "Registrer nytt lån";
+}
+
+<h1>Registrer nytt lån</h1>
+
+@if (TempData["ErrorMessage"] != null)
+{
+    <div class="alert alert-danger">
+        @TempData["ErrorMessage"]
+    </div>
+}
+
+<form asp-action="Create">
+    <div>
+        <label asp-for="DeviceId">Enhet</label>
+        <select asp-for="DeviceId" asp-items="ViewBag.DeviceId" class="form-select">
+            <option value="">-- Velg enhet --</option>
+        </select>
+    </div>
+    <div>
+        <label asp-for="StudentId">Student</label>
+        <select asp-for="StudentId" asp-items="ViewBag.StudentId" class="form-select">
+            <option value="">-- Velg student --</option>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-primary">Registrer lån</button>
+</form>

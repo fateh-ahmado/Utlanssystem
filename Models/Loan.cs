@@ -9,7 +9,7 @@ namespace Utlanssystem.Models
         [Key]
         public int Id { get; set; }
 
-        public DateTime LoanDate { get; set; }
+        public DateTime LoanDate { get; set; } // Datoen lånet ble opprettet
 
         [ForeignKey("Device")]
         public int DeviceId { get; set; }

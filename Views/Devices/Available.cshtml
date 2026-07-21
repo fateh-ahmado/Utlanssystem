@@ -1,0 +1,36 @@
+@model IEnumerable<Utlanssystem.Models.Device>
+
+@{
+    ViewData["Title"] = "Ledige enheter";
+}
+
+<h1>Ledige enheter</h1>
+
+@if (Model.Any())
+{
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Navn</th>
+                <th>Type</th>
+                <th>Modell</th>
+                <th>Spesifikasjoner</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.Name</td>
+                    <td>@item.DeviceType</td>
+                    <td>@item.ModelName</td>
+                    <td>@item.Specifications</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+    <p>Ingen enheter er tilgjengelige for utlån akkurat nå.</p>
+}
