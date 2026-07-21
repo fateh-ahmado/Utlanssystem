@@ -85,6 +85,65 @@ namespace Utlanssystem.Controllers
             TempData["SuccessMessage"] = $"Lån registrert: {student.FirstName} {student.LastName} har lånt {device.Name}!";
             return RedirectToAction(nameof(Index));
         }
+
+        /*-------------------------------------------------------------------------------------------
+                    Bygg Delete() — returnering av lånt enhet
+---------------------------------------------------------------------------------------------
+*/
+        // GET: Loans/Delete/5 - viser bekreftelsesside for retur av lån.
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
+
+            var loan = await _context.Loans
+                .Include(l => l.Device)
+                .Include(l => l.Student)
+                .FirstOrDefaultAsync(l => l.Id == id);
+
+            if (loan == null)
+            {
+                return NotFound();
+            }
+
+            return View(loan);
+        }
+
+        // POST: Loans/Delete/5 - registrerer enheten som returnert.
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var loan = await _context.Loans
+                .Include(l => l.Device)
+                .Include(l => l.Student)
+                .FirstOrDefaultAsync(l => l.Id == id);
+
+            if (loan != null)
+            {
+                // Sett enheten tilgjengelig igjen
+                if (loan.Device != null)
+                {
+                    loan.Device.IsAvailable = true;
+                }
+
+                // Sjekk om studenten har andre aktive lån igjen, etter denne fjernes
+                int remainingLoans = _context.Loans.Count(l => l.StudentId == loan.StudentId && l.Id != loan.Id);
+                if (loan.Student != null)
+                {
+                    loan.Student.HasActiveLoan = remainingLoans > 0;
+                }
+
+                TempData["SuccessMessage"] = $"{loan.Student?.FirstName} leverte tilbake {loan.Device?.Name}!";
+
+                _context.Loans.Remove(loan);
+                await _context.SaveChangesAsync();
+            }
+
+            return RedirectToAction(nameof(Index));
+        }
     }
     
 }
