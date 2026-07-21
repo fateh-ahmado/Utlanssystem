@@ -1,3 +1,40 @@
-﻿<div class="text-center">
-    <h1 class="display-4">Utlån</h1>
+﻿@{
+    ViewData["Title"] = "Hjem";
+}
+
+<div class="dashboard-container">
+    <div class="dashboard-header">
+        <h1>Utlånssystem</h1>
+        <p class="dashboard-subtitle">Administrer utlån av enheter og studentutstyr</p>
+    </div>
+
+    <div class="dashboard-stats">
+        <a href="@Url.Action("Index", "Devices")" class="stat-card stat-link">
+            <div class="stat-icon">📱</div>
+            <div class="stat-number">@ViewBag.TotalDevices</div>
+            <div class="stat-label">Enheter totalt</div>
+        </a>
+        <a href="@Url.Action("Available", "Devices")" class="stat-card stat-link">
+            <div class="stat-icon">✓</div>
+            <div class="stat-number">@ViewBag.AvailableDevices</div>
+            <div class="stat-label">Ledige enheter</div>
+        </a>
+        <a href="@Url.Action("Index", "Loans")" class="stat-card stat-link">
+            <div class="stat-icon">📋</div>
+            <div class="stat-number">@ViewBag.ActiveLoans</div>
+            <div class="stat-label">Aktive lån</div>
+        </a>
+        <a href="@Url.Action("Index", "Students")" class="stat-card stat-link">
+            <div class="stat-icon">👥</div>
+            <div class="stat-number">@ViewBag.TotalStudents</div>
+            <div class="stat-label">Studenter</div>
+        </a>
+    </div>
+
+    <div class="dashboard-actions">
+        <a href="@Url.Action("Create", "Loans")" class="action-btn primary">
+            <span class="btn-icon">➕</span>
+            <span>Registrer nytt lån</span>
+        </a>
+    </div>
 </div>
