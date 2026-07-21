@@ -115,6 +115,40 @@ namespace Utlanssystem.Controllers
         {
             return _context.Devices.Any(e => e.Id == id);
         }
+/*-------------------------------------------------------------------------------------------
+                          Bygg Delete() — bokstav D i CRUD
+---------------------------------------------------------------------------------------------
+*/
+        // GET: Devices/Delete/5 - viser bekreftelsesside før sletting.
+        public async Task<IActionResult> Delete(int? id)
+        {
+            if (id == null)
+            {
+                return NotFound();
+            }
 
+            var device = await _context.Devices.FindAsync(id); // Henter enheten fra databasen basert på ID.PK
+            if (device == null)
+            {
+                return NotFound();
+            }
+
+            return View(device);
+        }   
+        // POST: Denne metoden utfører selve slettingen etter bekreftelse fra brukeren.
+        [HttpPost, ActionName("Delete")]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> DeleteConfirmed(int id)
+        {
+            var device = await _context.Devices.FindAsync(id);
+            if (device != null)
+            {
+                _context.Devices.Remove(device);
+                TempData["SuccessMessage"] = $"Enheten '{device.Name}' ble slettet!";
+            }
+
+            await _context.SaveChangesAsync();
+            return RedirectToAction(nameof(Index));
+        }
     }  
 }

@@ -1,0 +1,34 @@
+@model Utlanssystem.Models.Device
+
+@{
+    ViewData["Title"] = "Slett enhet";
+}
+
+<h1>Slett enhet</h1>
+
+<h3>Er du sikker på at du vil slette denne enheten?</h3>
+
+<div>
+    <dl>
+        <dt>Navn</dt>
+        <dd>@Model.Name</dd>
+
+        <dt>Type</dt>
+        <dd>@Model.DeviceType</dd>
+
+        <dt>Modell</dt>
+        <dd>@Model.ModelName</dd>
+
+        <dt>Spesifikasjoner</dt>
+        <dd>@Model.Specifications</dd>
+
+        <dt>Tilgjengelig</dt>
+        <dd>@Model.IsAvailable</dd>
+    </dl>
+
+    <form asp-action="Delete">
+        <input type="hidden" asp-for="Id" />
+        <button type="submit" class="btn btn-danger">Bekreft sletting</button>
+        <a asp-action="Index">Avbryt</a>
+    </form>
+</div>
