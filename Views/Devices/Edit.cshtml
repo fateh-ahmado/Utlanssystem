@@ -1,0 +1,35 @@
+@model Utlanssystem.Models.Device
+
+@{
+    ViewData["Title"] = "Rediger enhet";
+}
+
+<h1>Rediger enhet</h1>
+
+<form asp-action="Edit">
+    <input type="hidden" asp-for="Id" />
+    <div>
+        <label asp-for="Name">Navn</label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="DeviceType">Type</label>
+        <input asp-for="DeviceType" />
+        <span asp-validation-for="DeviceType" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="ModelName">Modell</label>
+        <input asp-for="ModelName" />
+        <span asp-validation-for="ModelName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Specifications">Spesifikasjoner</label>
+        <input asp-for="Specifications" />
+    </div>
+    <div>
+        <label asp-for="IsAvailable">Tilgjengelig</label>
+        <input asp-for="IsAvailable" type="checkbox" />
+    </div>
+    <button type="submit">Lagre endringer</button>
+</form>

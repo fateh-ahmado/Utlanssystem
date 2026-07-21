@@ -1,0 +1,31 @@
+@model IEnumerable<Utlanssystem.Models.Student>
+
+@{
+    ViewData["Title"] = "Studenter";
+}
+
+<h1>Studenter</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Fornavn</th>
+            <th>Etternavn</th>
+            <th>Studentnummer</th>
+            <th>Aktivt lån</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Id</td>
+                <td>@item.FirstName</td>
+                <td>@item.LastName</td>
+                <td>@item.StudentNumber</td>
+                <td>@item.HasActiveLoan</td>
+            </tr>
+        }
+    </tbody>
+</table>

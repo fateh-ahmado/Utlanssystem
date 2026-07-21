@@ -1,0 +1,44 @@
+@*//Dette sier: "denne siden forventer å motta en liste av Device-objekter fra Controlleren.*@
+@model IEnumerable<Utlanssystem.Models.Device>
+
+@*// Setter tittelen på siden (brukes bl.a. i nettleser-fanen). *@
+@{
+    ViewData["Title"] = "Enheter";
+}
+@* Denne tabellen viser alle enheter fra databasen *@
+<h1>Enheter</h1>
+
+@* Viser en midlertidig bekreftelsesmelding etter vellykket Create, hentet fra TempData *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Navn</th>
+            <th>Type</th>
+            <th>Modell</th>
+            <th>Tilgjengelig</th>
+            <th>Handlinger</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.Name</td>
+                <td>@item.DeviceType</td>
+                <td>@item.ModelName</td>
+                <td>@item.IsAvailable</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Rediger</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Slett</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
