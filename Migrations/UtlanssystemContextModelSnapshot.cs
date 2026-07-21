@@ -44,7 +44,7 @@ namespace Utlanssystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Devices");
+                    b.ToTable("Devices", (string)null);
                 });
 
             modelBuilder.Entity("Utlanssystem.Models.Loan", b =>
@@ -68,7 +68,7 @@ namespace Utlanssystem.Migrations
 
                     b.HasIndex("StudentId");
 
-                    b.ToTable("Loans");
+                    b.ToTable("Loans", (string)null);
                 });
 
             modelBuilder.Entity("Utlanssystem.Models.Student", b =>
@@ -93,7 +93,7 @@ namespace Utlanssystem.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Students");
+                    b.ToTable("Students", (string)null);
                 });
 
             modelBuilder.Entity("Utlanssystem.Models.Loan", b =>
