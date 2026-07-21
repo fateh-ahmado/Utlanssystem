@@ -1,5 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using Utlanssystem.Data;
+using Utlanssystem.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 //Dette la vi til for å få tilgang til databasen.
@@ -10,6 +11,13 @@ builder.Services.AddDbContext<UtlanssystemContext>(options =>
 builder.Services.AddControllersWithViews();
 
 var app = builder.Build();
+
+// Dette er koden som kjører SeedData.Initialize() for å fylle databasen med testdata.
+using (var scope = app.Services.CreateScope())
+{
+    var services = scope.ServiceProvider;
+    SeedData.Initialize(services);
+}
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
