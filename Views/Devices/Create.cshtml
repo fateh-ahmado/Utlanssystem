@@ -1,0 +1,43 @@
+@* 
+Create.cshtml Denne er Malen til Skjema som skal visses til bruker 
+som gir mulighet til å legge til en ny enhet i databasen.
+*@
+
+@*denne siden forventer ett Device-objekt (ikke en liste, som Index gjorde)*@
+@model Utlanssystem.Models.Device
+
+@{
+    ViewData["Title"] = "Legg til enhet";
+}
+
+<h1>Legg til enhet</h1>
+@*
+Razor-spesifikk hjelper som sier når skjema er fylt ut og 
+klar send den til Create-metoden POST
+*@
+<form asp-action="Create">
+    <div>
+        <label asp-for="Name">Navn</label>
+        <input asp-for="Name" />
+        <span asp-validation-for="Name" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="DeviceType">Type</label>
+        <input asp-for="DeviceType" />
+        <span asp-validation-for="DeviceType" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="ModelName">Modell</label>
+        <input asp-for="ModelName" />
+        <span asp-validation-for="ModelName" class="text-danger"></span>
+    </div>
+    <div>
+        <label asp-for="Specifications">Spesifikasjoner</label>
+        <input asp-for="Specifications" />
+    </div>
+    <div>
+        <label asp-for="IsAvailable">Tilgjengelig</label>
+        <input asp-for="IsAvailable" type="checkbox" />
+    </div>
+    <button type="submit">Lagre</button>
+</form>

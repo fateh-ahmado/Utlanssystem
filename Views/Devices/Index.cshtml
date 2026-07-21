@@ -8,6 +8,14 @@
 @* Denne tabellen viser alle enheter fra databasen *@
 <h1>Enheter</h1>
 
+@* Viser en midlertidig bekreftelsesmelding etter vellykket Create, hentet fra TempData *@
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
 <table class="table">
     <thead>
         <tr>
