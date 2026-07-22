@@ -1,11 +1,18 @@
 using Microsoft.EntityFrameworkCore;
 using Utlanssystem.Data;
 using Utlanssystem.Models;
+using Microsoft.AspNetCore.Identity; // dette er lagt til for å bruke IdentityDbContext
 
 var builder = WebApplication.CreateBuilder(args);
+
 //Dette la vi til for å få tilgang til databasen.
 builder.Services.AddDbContext<UtlanssystemContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("UtlanssystemContext")));
+
+// Identity-oppsett - Dette "skrur på" hele innloggingssystemet (registrering, login, passord).
+builder.Services.AddDefaultIdentity<IdentityUser>(options => options.SignIn.RequireConfirmedAccount = false)
+    .AddRoles<IdentityRole>()
+    .AddEntityFrameworkStores<UtlanssystemContext>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
@@ -23,13 +30,13 @@ using (var scope = app.Services.CreateScope())
 if (!app.Environment.IsDevelopment())
 {
     app.UseExceptionHandler("/Home/Error");
-    // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
 
 app.UseHttpsRedirection();
 app.UseRouting();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapStaticAssets();
@@ -39,5 +46,6 @@ app.MapControllerRoute(
     pattern: "{controller=Home}/{action=Index}/{id?}")
     .WithStaticAssets();
 
+app.MapRazorPages();
 
 app.Run();
