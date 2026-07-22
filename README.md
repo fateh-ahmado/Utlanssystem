@@ -51,3 +51,6 @@ dotnet run
 - `Controllers/` + `Views/` - one pair per resource: Devices, Students, Loans, Home
 - `Areas/Identity/` - login, registration, and account management pages (Identity)
 
+## Screenshot
+
+![Dashboard](docs/dashboard.png)
