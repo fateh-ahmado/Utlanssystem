@@ -136,6 +136,7 @@ main {
 .stat-icon {
     font-size: 2.5rem;
     margin-bottom: 15px;
+    color: var(--color-accent);
 }
 
 .stat-number {
@@ -268,6 +269,21 @@ main {
 }
 
 /* ==========================================================================
+   Detaljlister (dl/dt/dd) — f.eks. bekreftelsessider (Delete/Details)
+   ========================================================================== */
+
+dl dt {
+    color: #d0d0d0;
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+dl dd {
+    color: #ffffff;
+    margin-bottom: 0;
+}
+
+/* ==========================================================================
    Skjemaer (Create / Edit) — venstrejustert, label over input
    ========================================================================== */
 
@@ -280,13 +296,13 @@ form {
     border: 1px solid rgba(42, 157, 143, 0.2);
 }
 
-form div {
+form div:not(.form-floating) {
     display: flex;
     flex-direction: column;
     margin-bottom: 18px;
 }
 
-form label {
+form label:not(.form-floating > label) {
     color: #d0d0d0;
     margin-bottom: 6px;
     font-weight: 500;
@@ -302,10 +318,16 @@ form .form-control {
     color: #ffffff !important;
     border: 1px solid rgba(42, 157, 143, 0.3) !important;
     border-radius: 8px !important;
-    padding: 10px 14px !important;
-    max-width: 350px;
     font-size: 1rem;
     transition: all 0.3s ease;
+}
+
+form input[type="text"],
+form input[type="number"],
+form select,
+form .form-select {
+    padding: 10px 14px !important;
+    max-width: 350px;
 }
 
 form input[type="text"]:focus,
@@ -315,6 +337,21 @@ form .form-control:focus {
     border-color: var(--color-accent) !important;
     box-shadow: 0 0 0 3px rgba(42, 157, 143, 0.2) !important;
     outline: none;
+}
+
+/* Bootstrap floating labels (Identity-sidene) - behold riktig padding så label ikke overlapper verdien */
+.form-floating > .form-control {
+    height: calc(3.5rem + 2px);
+}
+
+.form-floating > label {
+    color: #a0a0a0 !important;
+    padding: 1rem 0.75rem;
+}
+
+.form-floating > .form-control:focus ~ label,
+.form-floating > .form-control:not(:placeholder-shown) ~ label {
+    color: var(--color-accent) !important;
 }
 
 form input[type="checkbox"] {

@@ -1,4 +1,5 @@
 // Denne klassen skal vise en liste over enheter.
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Utlanssystem.Data;
@@ -20,6 +21,7 @@ namespace Utlanssystem.Controllers
 ---------------------------------------------------------------------------------------------
 */
         // GET: Devices - viser en liste over alle enheter.
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index()
         {
             return View(await _context.Devices.ToListAsync());
@@ -30,6 +32,7 @@ namespace Utlanssystem.Controllers
 ---------------------------------------------------------------------------------------------
 */
         // GET: Devices/Create - viser tomt skjema for å legge til ny enhet i DB.
+        [Authorize(Roles = "Admin")] 
         public IActionResult Create()
         {
             return View();
@@ -42,6 +45,7 @@ namespace Utlanssystem.Controllers
         // POST: Devices/Create - mottar utfylt skjema og lagrer ny enhet i databasen.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,DeviceType,ModelName,Specifications,IsAvailable")] Device device)
         {
             if (ModelState.IsValid)
@@ -59,6 +63,7 @@ namespace Utlanssystem.Controllers
 ---------------------------------------------------------------------------------------------
 */
         // GET: Devices/Edit/5 - viser skjema med eksisterende data for redigering.
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -76,6 +81,7 @@ namespace Utlanssystem.Controllers
         // POST: Devices/Edit/5 - mottar endrede data og oppdaterer enheten i databasen.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,DeviceType,ModelName,Specifications,IsAvailable")] Device device)
         {
             if (id != device.Id)
@@ -120,6 +126,7 @@ namespace Utlanssystem.Controllers
 ---------------------------------------------------------------------------------------------
 */
         // GET: Devices/Delete/5 - viser bekreftelsesside før sletting.
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -138,6 +145,7 @@ namespace Utlanssystem.Controllers
         // POST: Denne metoden utfører selve slettingen etter bekreftelse fra brukeren.
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             var device = await _context.Devices.FindAsync(id);

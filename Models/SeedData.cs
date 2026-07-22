@@ -1,3 +1,4 @@
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Utlanssystem.Data;
@@ -8,11 +9,28 @@ namespace Utlanssystem.Models
 {
     public static class SeedData
     {
-        public static void Initialize(IServiceProvider serviceProvider)
+        public static async void Initialize(IServiceProvider serviceProvider)
         {
             using (var context = new UtlanssystemContext(
                 serviceProvider.GetRequiredService<DbContextOptions<UtlanssystemContext>>()))
             {
+                // Seed Admin-rolle og admin-bruker
+                var roleManager = serviceProvider.GetRequiredService<RoleManager<IdentityRole>>();
+                var userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>();
+
+                if (!await roleManager.RoleExistsAsync("Admin"))
+                {
+                    await roleManager.CreateAsync(new IdentityRole("Admin"));
+                }
+
+                var adminEmail = "admin@utlanssystem.no";
+                var adminUser = await userManager.FindByEmailAsync(adminEmail);
+
+                if (adminUser != null && !await userManager.IsInRoleAsync(adminUser, "Admin"))
+                {
+                    await userManager.AddToRoleAsync(adminUser, "Admin");
+                }
+
                 // Seed studenter, kun hvis tabellen er tom
                 if (!context.Students.Any())
                 {
